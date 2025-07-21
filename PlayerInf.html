@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息输入</title>
+    <link rel="stylesheet" href="/training/CSS/player.css">
+</head>
+<body>
+    <div class="container">
+        <form id="userForm" autocomplete="off" novalidate>
+            <div class="form-group">
+                <label for="name">名称<span style="color:red">*</span></label>
+                <input type="text" id="name" name="name" required>
+                <span class="error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+                <label for="age">年龄<span style="color:red">*</span></label>
+                <input type="number" id="age" name="age" required>
+                <span class="error" id="ageError"></span>
+            </div>
+            <div class="form-group">
+                <label>性别<span style="color:red">*</span></label>
+                <input type="radio" id="male" name="gender" value="男">
+                <label for="male" style="display:inline;">男</label>
+                <input type="radio" id="female" name="gender" value="女">
+                <label for="female" style="display:inline;">女</label>
+                <span class="error" id="genderError"></span>
+            </div>
+            <div class="form-group">
+                <label for="address">地址</label>
+                <textarea id="address" name="address" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="city">城市</label>
+                <select id="city" name="city">
+                    <option value="">请选择城市</option>
+                    <option value="北京">北京</option>
+                    <option value="上海">上海</option>
+                    <option value="广州">广州</option>
+                    <option value="深圳">深圳</option>
+                    <option value="杭州">杭州</option>
+                    <option value="杭州">西安</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="zipcode">邮政编码<span style="color:red">*</span></label>
+                <input type="text" id="zipcode" name="zipcode" maxlength="6" required>
+                <span class="error" id="zipcodeError"></span>
+            </div>
+            <div class="form-group">
+                <label>爱好</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="hobby" value="看电影">看电影</label>
+                    <label><input type="checkbox" name="hobby" value="唱歌">唱歌</label>
+                    <label><input type="checkbox" name="hobby" value="听音乐">听音乐</label>
+                    <label><input type="checkbox" name="hobby" value="阅读">阅读</label>
+                    <label><input type="checkbox" name="hobby" value="户外运动">户外运动</label>
+                    <label><input type="checkbox" name="hobby" value="室内运动">室内运动</label>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">提交</button>
+        </form>
+        <div id="result" class="result" style="display:none;"></div>
+    </div>
+    <script>
+        document.getElementById('userForm').onsubmit = function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            // 清空错误
+            document.getElementById('nameError').textContent = '';
+            document.getElementById('ageError').textContent = '';
+            document.getElementById('genderError').textContent = '';
+            document.getElementById('zipcodeError').textContent = '';
+
+            // 名称校验
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                document.getElementById('nameError').textContent = '必填';
+                valid = false;
+            }
+
+            // 年龄校验
+            const age = document.getElementById('age').value.trim();
+            if (!age || isNaN(age) || age < 10 || age > 100) {
+                document.getElementById('ageError').textContent = '请输入10到100之间的数字';
+                valid = false;
+            }
+
+            // 性别校验
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').textContent = '请选择性别';
+                valid = false;
+            }
+
+            // 邮编校验
+            const zipcode = document.getElementById('zipcode').value.trim();
+            if (!/^\d{6}$/.test(zipcode)) {
+                document.getElementById('zipcodeError').textContent = '请输入6位数字';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            // 其它信息
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value;
+            const hobbies = Array.from(document.querySelectorAll('input[name="hobby"]:checked')).map(cb => cb.value);
+
+            // 展示结果
+            let html = `<h3>用户信息：</h3>
+                <p><strong>名称：</strong>${name}</p>
+                <p><strong>年龄：</strong>${age}</p>
+                <p><strong>性别：</strong>${gender ? gender.value : ''}</p>
+                <p><strong>地址：</strong>${address || '无'}</p>
+                <p><strong>城市：</strong>${city || '未选择'}</p>
+                <p><strong>邮政编码：</strong>${zipcode}</p>
+                <p><strong>爱好：</strong>${hobbies.length ? hobbies.join('、') : '无'}</p>`;
+            document.getElementById('result').innerHTML = html;
+            document.getElementById('result').style.display = 'block';
+        };
+    </script>
+</body>
+</html>

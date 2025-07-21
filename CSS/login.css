@@ -1,0 +1,84 @@
+body {
+    font-family: "微软雅黑", Arial, sans-serif;
+    /* background-color: #f5f7fa; */
+    background: url('/training/img/regist.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 400px;
+    /* background: #fff; */
+    background: rgba(255, 255, 255, 0.75);
+    margin: 60px auto;
+    padding: 36px 32px;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 28px;
+    color: #333;
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+label {
+    text-align: left;
+    margin-bottom: 6px;
+    color: #555;
+    font-size: 1rem;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.2s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border: 1.5px solid #7b68ee;
+    outline: none;
+}
+
+input[type="submit"],
+input[type="button"] {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #7b68ee;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+input[type="button"] {
+    background: #aaa;
+}
+
+input[type="submit"]:hover {
+    background: #5a4fcf;
+}
+
+input[type="button"]:hover {
+    background: #888;
+}
+input::placeholder {
+    color: #888;
+    opacity: 0.6; /* 设置透明度，0为全透明，1为不透明 */
+}
